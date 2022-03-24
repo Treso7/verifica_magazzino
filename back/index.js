@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
   password: process.env.PASSWORD,
 });
 */
-kkkkk
+
 var connection = mysql.createConnection({
   host:"localhost",
   port:"3306",
@@ -62,3 +62,34 @@ apiServer.get("/api/insert", (req, res) => {
       }
     }
   );
+
+
+apiServer.get("/api/update_plus", (req, res) => {
+  console.log("ricevuti:", req.query.quantita);
+  connection.query(
+    'UPDATE magazzino SET quantita = ?  WHERE quantita = ?;',
+    [req.query.quantita+1, req.query.quantita],
+    function (err, results) {
+      console.log(err, results);
+      if (results) {
+        res.status(200).json({ message: "update success" });
+      } else {
+        res.status(400).json({ message: "update failed" });
+      }
+    }
+  );
+
+  apiServer.get("/api/update_minus", (req, res) => {
+    console.log("ricevuti:", req.query.quantita);
+    connection.query(
+      'UPDATE magazzino SET quantita = ?  WHERE quantita = ?;',
+      [req.query.quantita-1, req.query.quantita],
+      function (err, results) {
+        console.log(err, results);
+        if (results) {
+          res.status(200).json({ message: "update success" });
+        } else {
+          res.status(400).json({ message: "update failed" });
+        }
+      }
+    );
