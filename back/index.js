@@ -23,7 +23,7 @@ var connection = mysql.createConnection({
   password:"password",
   database:"c195_prova"
   });
-"ciao"
+
 
 var host = "localhost";
 var port = 3000;
